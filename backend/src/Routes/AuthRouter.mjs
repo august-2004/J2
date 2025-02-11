@@ -1,38 +1,164 @@
 import { Router } from "express";
 import UserModel from "../Schemas/UserSchema.mjs";
+import OTPModel from "../Schemas/OTPModel.mjs";
 import { hashSync, compareSync } from "bcrypt";
 import passport from "passport";
 import "../config/passport.mjs";
 import jwt from "jsonwebtoken";
+import {
+	otpRequestLimiter,
+	generateOTP,
+	otpVerificationLimiter,
+} from "../utilities/otpGenerator.mjs";
+import { sendMail } from "../utilities/mailer.mjs";
 
 const authRouter = new Router();
 
-authRouter.post("/register", (req, res) => {
+authRouter.post("/signup", otpRequestLimiter, async (req, res) => {
+	const userExists = await UserModel.findOne({ email: req.body.email });
+	if (userExists) {
+		return res.status(200).send({
+			success: false,
+			message: "User already exists",
+		});
+	}
 	const user = new UserModel({
 		name: req.body.name,
 		email: req.body.email,
 		password: hashSync(req.body.password, 10),
-		role: req.body.role,
 	});
-
 	user
 		.save()
 		.then((user) => {
-			res.send({
-				success: true,
-				message: "user created successfully",
-				user: {
-					id: user._id,
-					name: user.name,
-					role: user.role,
-				},
+			const otpValue = generateOTP();
+			const otp = new OTPModel({
+				email: req.body.email,
+				otp: hashSync(otpValue, 10),
+				otpExpiresAt: new Date(Date.now() + 10 * 60 * 1000),
 			});
+			otp
+				.save()
+				.then(() => {
+					sendMail(
+						req.body.email,
+						"Verify your J2 Account",
+						`To complete signing up for J2 | The Notetaking App, Please Enter the Otp. \n Your OTP code is ${otpValue}`
+					)
+						.then(() => {
+							return res.status(200).send({
+								success: true,
+								message: "OTP sent to email",
+							});
+						})
+						.catch((error) => {
+							return res.status(500).send({
+								success: false,
+								message: "Failed to send OTP",
+							});
+						});
+				})
+				.catch((error) => {
+					return res.status(500).send({
+						success: false,
+						message: "Failed to save OTP",
+					});
+				});
 		})
-		.catch((err) => {
-			res.send({
+		.catch((error) => {
+			return res.status(500).send({
 				success: false,
-				message: "An error occured in creating user",
-				error: err,
+				message: "Failed to save user",
+			});
+		});
+});
+
+authRouter.post("/verify-otp", otpVerificationLimiter, async (req, res) => {
+	const { email, otp } = req.body;
+	const otpRecord = await OTPModel.findOne({ email });
+
+	if (!otpRecord) {
+		return res.status(400).send({
+			success: false,
+			message: "OTP not found",
+		});
+	}
+
+	if (new Date() > otpRecord.otpExpiresAt) {
+		await OTPModel.deleteOne({ email });
+		return res.status(400).send({
+			success: false,
+			message: "OTP has expired",
+		});
+	}
+
+	const isMatch = compareSync(otp, otpRecord.otp);
+
+	if (!isMatch) {
+		return res.status(400).send({
+			success: false,
+			message: "Invalid OTP",
+		});
+	}
+
+	await OTPModel.deleteOne({ email });
+	await UserModel.updateOne({ email }, { verified: true });
+	return res.status(200).send({
+		success: true,
+		message: "OTP verified successfully",
+	});
+});
+
+authRouter.post("/resend-otp", otpRequestLimiter, async (req, res) => {
+	const { email } = req.body;
+	const user = await UserModel.findOne({ email });
+
+	if (!user) {
+		return res.status(400).send({
+			success: false,
+			message: "User does not exist",
+		});
+	}
+
+	if (user.verified) {
+		return res.status(400).send({
+			success: false,
+			message: "User is already verified",
+		});
+	}
+
+	const otpValue = generateOTP();
+	const otp = new OTPModel({
+		email: req.body.email,
+		otp: hashSync(otpValue, 10),
+		otpExpiresAt: new Date(Date.now() + 10 * 60 * 1000), // OTP expires in 10 minutes
+	});
+
+	await OTPModel.deleteMany({ email }); // Delete any existing OTPs for the user
+	otp
+		.save()
+		.then(() => {
+			sendMail(
+				req.body.email,
+				"Verify your J2 Account",
+				`To complete signing up for J2 | The Notetaking App, Please Enter the Otp. \n Your OTP code is ${otpValue}`
+			)
+				.then(() => {
+					return res.status(200).send({
+						success: true,
+						message: "New OTP sent to email",
+					});
+				})
+				.catch((error) => {
+					return res.status(500).send({
+						success: false,
+						message: "Failed to send OTP",
+					});
+				});
+		})
+		.catch((error) => {
+			return res.status(500).send({
+				success: false,
+				message: "Failed to save OTP",
 			});
 		});
 });
@@ -43,6 +169,12 @@ authRouter.post("/login", (req, res) => {
 			return res.status(200).send({
 				success: false,
 				message: "User does not exist",
+			});
+		}
+		if (!user.verified) {
+			return res.status(200).send({
+				success: false,
+				message: "User email not verified",
 			});
 		}
 
