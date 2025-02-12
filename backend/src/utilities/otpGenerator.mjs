@@ -8,11 +8,19 @@ export const generateOTP = () => {
 export const otpRequestLimiter = rateLimit({
 	windowMs: 15 * 60 * 1000,
 	max: 5,
-	message: "Too many OTP requests, please try again after 15 minutes.",
+	message: {
+		success: false,
+		message:
+			"Too many verification attempts, please try again after 15 minutes.",
+	},
 });
 //OTP VERIFICATION LIMITER
 export const otpVerificationLimiter = rateLimit({
 	windowMs: 15 * 60 * 1000,
 	max: 10,
-	message: "Too many verification attempts, please try again after 15 minutes.",
+	message: {
+		success: false,
+		message:
+			"Too many verification attempts, please try again after 15 minutes.",
+	},
 });

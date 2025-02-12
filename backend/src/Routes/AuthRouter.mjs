@@ -14,7 +14,7 @@ import { sendMail } from "../utilities/mailer.mjs";
 
 const authRouter = new Router();
 
-authRouter.post("/signup", otpRequestLimiter, async (req, res) => {
+authRouter.post("/signup", async (req, res) => {
 	const userExists = await UserModel.findOne({ email: req.body.email });
 	if (userExists) {
 		return res.status(200).send({
@@ -42,7 +42,7 @@ authRouter.post("/signup", otpRequestLimiter, async (req, res) => {
 					sendMail(
 						req.body.email,
 						"Verify your J2 Account",
-						`To complete signing up for J2 | The Notetaking App, Please Enter the Otp. \n Your OTP code is ${otpValue}`
+						`To complete signing up for J2 | The Notetaking App, please enter the OTP.\n\n**Your OTP code is ${otpValue}**`
 					)
 						.then(() => {
 							return res.status(200).send({
@@ -51,6 +51,8 @@ authRouter.post("/signup", otpRequestLimiter, async (req, res) => {
 							});
 						})
 						.catch((error) => {
+							console.log(error);
+
 							return res.status(500).send({
 								success: false,
 								message: "Failed to send OTP",
@@ -58,6 +60,8 @@ authRouter.post("/signup", otpRequestLimiter, async (req, res) => {
 						});
 				})
 				.catch((error) => {
+					console.log(error);
+
 					return res.status(500).send({
 						success: false,
 						message: "Failed to save OTP",
@@ -65,6 +69,7 @@ authRouter.post("/signup", otpRequestLimiter, async (req, res) => {
 				});
 		})
 		.catch((error) => {
+			console.log(error);
 			return res.status(500).send({
 				success: false,
 				message: "Failed to save user",
@@ -130,10 +135,10 @@ authRouter.post("/resend-otp", otpRequestLimiter, async (req, res) => {
 	const otp = new OTPModel({
 		email: req.body.email,
 		otp: hashSync(otpValue, 10),
-		otpExpiresAt: new Date(Date.now() + 10 * 60 * 1000), // OTP expires in 10 minutes
+		otpExpiresAt: new Date(Date.now() + 10 * 60 * 1000),
 	});
 
-	await OTPModel.deleteMany({ email }); // Delete any existing OTPs for the user
+	await OTPModel.deleteMany({ email });
 	otp
 		.save()
 		.then(() => {
@@ -161,6 +166,97 @@ authRouter.post("/resend-otp", otpRequestLimiter, async (req, res) => {
 				message: "Failed to save OTP",
 			});
 		});
+});
+
+authRouter.post(
+	"/request-password-reset",
+	otpRequestLimiter,
+	async (req, res) => {
+		const { email } = req.body;
+		const user = await UserModel.findOne({ email });
+
+		if (!user) {
+			return res.status(400).send({
+				success: false,
+				message: "User does not exist",
+			});
+		}
+
+		const otpValue = generateOTP();
+		const otp = new OTPModel({
+			email: req.body.email,
+			otp: hashSync(otpValue, 10),
+			otpExpiresAt: new Date(Date.now() + 10 * 60 * 1000),
+		});
+
+		await OTPModel.deleteMany({ email });
+		otp
+			.save()
+			.then(() => {
+				sendMail(
+					req.body.email,
+					"Password Reset Request",
+					`You requested a password reset. Your OTP code is ${otpValue}`
+				)
+					.then(() => {
+						return res.status(200).send({
+							success: true,
+							message: "Password reset OTP sent to email",
+						});
+					})
+					.catch((error) => {
+						return res.status(500).send({
+							success: false,
+							message: "Failed to send password reset OTP",
+						});
+					});
+			})
+			.catch((error) => {
+				return res.status(500).send({
+					success: false,
+					message: "Failed to save OTP",
+				});
+			});
+	}
+);
+
+authRouter.post("/reset-password", otpVerificationLimiter, async (req, res) => {
+	const { email, otp, newPassword } = req.body;
+	const otpRecord = await OTPModel.findOne({ email });
+
+	if (!otpRecord) {
+		return res.status(400).send({
+			success: false,
+			message: "OTP not found",
+		});
+	}
+
+	if (new Date() > otpRecord.otpExpiresAt) {
+		await OTPModel.deleteOne({ email });
+		return res.status(400).send({
+			success: false,
+			message: "OTP has expired",
+		});
+	}
+
+	const isMatch = compareSync(otp, otpRecord.otp);
+
+	if (!isMatch) {
+		return res.status(400).send({
+			success: false,
+			message: "Invalid OTP",
+		});
+	}
+
+	await OTPModel.deleteOne({ email });
+
+	const hashedPassword = hashSync(newPassword, 10);
+	await UserModel.updateOne({ email }, { password: hashedPassword });
+
+	return res.status(200).send({
+		success: true,
+		message: "Password reset successfully",
+	});
 });
 
 authRouter.post("/login", (req, res) => {

@@ -1,6 +1,19 @@
 {
+  "name": "j2-backend",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "./src/index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon ./src/index.mjs",
+    "start": "node ./src/index.mjs"
+  },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "jsonwebtoken": "^9.0.2",
@@ -8,5 +21,8 @@
     "nodemailer": "^6.10.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }
