@@ -1,0 +1,6 @@
+.masonry-grid {
+    display: flex;   
+}
+.masonry-column {
+        margin: 5px;
+}
