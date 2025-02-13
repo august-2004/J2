@@ -1,0 +1,45 @@
+.card-body textarea{
+    resize: none;
+    width: 100%;
+    background-color: inherit;
+    outline: none;
+    overflow: hidden;
+}
+.card{
+    width: 350px;
+    border-radius: 10px ;
+    background-color: blueviolet;
+    box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075), 0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075), 0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075);
+    
+}
+.card-header{
+    background-color: rgb(117, 0, 226);
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    padding: 5px;
+    padding-left: 10px;
+}
+.card-body{
+    padding: 1em;
+}
+
+.card-body textarea::-webkit-scrollbar {
+    width: 12px;
+
+}
+
+.card-body textarea::-webkit-scrollbar-track {
+    background: none
+
+}
+
+.card-body textarea::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.241);
+    border-radius: 10px;
+
+}
+
+.card-body textarea::-webkit-scrollbar-thumb:hover {
+    background: rgba(67, 67, 67, 0.241);
+    cursor: pointer;
+}
