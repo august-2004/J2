@@ -1,4 +1,7 @@
 import CardLayout from "@/components/CardLayout";
+import TopBar from "@/components/TopBar";
+import SideBar from "@/components/SideBar";
+
 export default function Home() {
 	const notes = [
 		{
@@ -29,5 +32,13 @@ export default function Home() {
 			content: "This is the content of my fifth note",
 		},
 	];
-	return <CardLayout notes={notes} />;
+	return (
+		<div className="app-container">
+			<TopBar />
+			<div className="main-container">
+				<SideBar />
+				<CardLayout notes={notes} />
+			</div>
+		</div>
+	);
 }
