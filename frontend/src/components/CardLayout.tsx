@@ -1,13 +1,18 @@
 "use client";
+import { NotesContext } from "@/utils/NotesContext";
 import Card from "./Card";
 import "./styles/CardLayout.css";
 import Masonry from "react-masonry-css";
-const CardLayout = ({ notes }: any) => {
+import { useContext } from "react";
+const CardLayout = () => {
 	const breakpointColumns = {
 		default: 4,
 		1050: 3,
 		700: 1,
 	};
+
+	const { notes } = useContext(NotesContext);
+
 	return (
 		<div className="card-layout">
 			<Masonry
@@ -16,7 +21,7 @@ const CardLayout = ({ notes }: any) => {
 				columnClassName="masonry-column"
 			>
 				{notes.map((note: any) => (
-					<Card className="card" key={note.id} note={note} />
+					<Card className="card" key={note._id} note={note} />
 				))}
 			</Masonry>
 		</div>

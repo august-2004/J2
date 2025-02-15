@@ -46,13 +46,11 @@ body {
   height: 91vh;
   width: 80px;
   display: flex;
-  top: 10vh;
 
 }
 
 .palatte{
   height: 90%;
-  background-color: white;
   width: 80%;
   margin: 0 auto;
   margin-left: 10px;
@@ -83,12 +81,13 @@ body {
 }
 
 .colorpicker{
+  outline: 5px solid;
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  background-color: red;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 9px;
+  margin-bottom: 20px;
 }
 #purple{
   margin-top: 40px;
