@@ -1,9 +1,10 @@
 "use client";
 import { useContext } from "react";
 import { NotesContext } from "@/utils/NotesContext";
+import { PageContext } from "@/utils/PageContext";
 
 const SideBar = () => {
-	const { setNotes } = useContext(NotesContext);
+	const { setNotes, setSelectedNote } = useContext(NotesContext);
 	const createNote = async ({ titleColor, contentColor }) => {
 		try {
 			const response = await fetch("http://localhost:3100/create", {
@@ -18,10 +19,13 @@ const SideBar = () => {
 			});
 			const note = await response.json();
 			setNotes((prevNotes) => [note, ...prevNotes]);
+			setCurrentPage("editor");
+			setSelectedNote(note);
 		} catch (error) {
 			console.error("Error:", error);
 		}
 	};
+	const { setCurrentPage } = useContext(PageContext);
 
 	const colors = {
 		cyanoViolet: ["#150836", "#1E0B4C"],

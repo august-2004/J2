@@ -1,5 +1,5 @@
 
-.card-header textarea {
+.card-header p {
     background-color: inherit;
     outline: none;
     border: none;
@@ -8,14 +8,20 @@
     overflow: hidden;
     height: 100%;
     flex: 1;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
 }
 
-.card-body textarea{
+.card-body{
     resize: none;
     width: 100%;
     background-color: inherit;
     outline: none;
     overflow: hidden;
+    word-wrap: break-word;
+    white-space: pre-wrap; 
+    overflow-wrap: break-word;
 }
 .card{
     width: 100%;
@@ -46,7 +52,7 @@
         border-bottom-right-radius: inherit;
 }
 
-.card-body textarea::-webkit-scrollbar {
+.card-body ::-webkit-scrollbar {
     width: 12px;
 
 }

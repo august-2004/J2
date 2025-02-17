@@ -5,6 +5,7 @@ export const NotesContext = createContext();
 
 const NotesProvider = ({ children }) => {
 	const [notes, setNotes] = useState([]);
+	const [selectedNote, setSelectedNote] = useState(null);
 	useEffect(() => {
 		fetchNotes();
 	}, []);
@@ -13,8 +14,15 @@ const NotesProvider = ({ children }) => {
 		const response = await fetch("http://localhost:3100/read");
 		const data = await response.json();
 		setNotes(data);
+		console.log(data);
 	};
-	const contextData = { notes, setNotes, fetchNotes };
+	const contextData = {
+		notes,
+		setNotes,
+		fetchNotes,
+		selectedNote,
+		setSelectedNote,
+	};
 
 	return (
 		<NotesContext.Provider value={contextData}>
