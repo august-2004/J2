@@ -13,6 +13,7 @@ import { NotesContext } from "@/utils/NotesContext";
 import DOMPurify from "dompurify";
 import Toolbar from "./Toolbar";
 import Loader from "./Loader";
+import { toast } from "sonner";
 
 export default function Editor({ note, onClose }: any) {
 	const [isVisible, setIsVisible] = useState(false);
@@ -79,7 +80,7 @@ export default function Editor({ note, onClose }: any) {
 			const data = await response.json();
 			console.log(data);
 		} catch (err) {
-			console.error(err);
+			toast.error("Failed to save note");
 		}
 	};
 

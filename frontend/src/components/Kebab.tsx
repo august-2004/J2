@@ -7,6 +7,7 @@ import {
 import { MoreVertical } from "lucide-react";
 import { NotesContext } from "@/utils/NotesContext";
 import { useContext } from "react";
+import { toast } from "sonner";
 
 export default function Kebab({ color, note_id }: any) {
 	const { fetchNotes }: any = useContext(NotesContext);
@@ -23,8 +24,7 @@ export default function Kebab({ color, note_id }: any) {
 			const data = await response.json();
 			fetchNotes();
 		} catch (err) {
-			//change to popup
-			console.error(err);
+			toast.error("Failed to delete note");
 		}
 	};
 	return (

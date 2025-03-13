@@ -42,6 +42,7 @@ body {
 	height: 91vh;
 	width: 80px;
 	display: flex;
+	z-index: 1;
 }
 
 .palatte {
@@ -59,17 +60,20 @@ body {
 	height: 91vh;
 	margin: 0 10px;
 }
-.card-layout ::-webkit-scrollbar {
+body ::-webkit-scrollbar {
 	width: 12px;
 }
-.card-layout ::-webkit-scrollbar-track {
+
+body ::-webkit-scrollbar-track {
 	background: none;
 }
-.card-layout ::-webkit-scrollbar-thumb {
+
+body ::-webkit-scrollbar-thumb {
 	background: rgba(255, 255, 255, 0.241);
 	border-radius: 10px;
 }
-.card-layout ::-webkit-scrollbar-thumb:hover {
+
+body ::-webkit-scrollbar-thumb:hover {
 	background: rgba(67, 67, 67, 0.241);
 	cursor: pointer;
 }
@@ -85,6 +89,11 @@ body {
 }
 #purple {
 	margin-top: 40px;
+}
+
+.alert-dialog {
+	position: fixed;
+	bottom: 0;
 }
 
 @layer base {

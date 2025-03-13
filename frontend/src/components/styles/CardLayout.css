@@ -1,15 +1,14 @@
 .masonry-grid {
-    display: flex;  
+	display: flex;
 }
 .masonry-column {
-    margin: 5px;
+	margin: 5px;
 }
 
 .card-layout {
-    flex: 1;
-    overflow-y: auto;
-    height: 91vh;
-    margin: 0 10px;
-    transition: all 0.3s ease; /* Add this line for smooth transition */
+	flex: 1;
+	overflow-y: auto;
+	height: 91vh;
+	margin: 0 10px;
+	transition: all 0.3s ease; /* Add this line for smooth transition */
 }
-

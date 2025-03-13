@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, createContext } from "react";
-
 export const NotesContext = createContext();
+import { toast } from "sonner";
 
 const NotesProvider = ({ children }) => {
 	const [notes, setNotes] = useState([]);
@@ -11,10 +11,14 @@ const NotesProvider = ({ children }) => {
 	}, []);
 
 	const fetchNotes = async () => {
-		const response = await fetch("/api/read");
-		const data = await response.json();
-		setNotes(data);
-		console.log(data);
+		try {
+			const response = await fetch("/api/read");
+			const data = await response.json();
+			setNotes(data);
+			console.log(data);
+		} catch (error) {
+			toast.error("Failed to fetch notes");
+		}
 	};
 	const contextData = {
 		notes,

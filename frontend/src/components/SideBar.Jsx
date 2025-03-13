@@ -2,6 +2,7 @@
 import { useContext } from "react";
 import { NotesContext } from "@/utils/NotesContext";
 import { PageContext } from "@/utils/PageContext";
+import { toast } from "sonner";
 
 const SideBar = () => {
 	const { setNotes, setSelectedNote } = useContext(NotesContext);
@@ -22,7 +23,7 @@ const SideBar = () => {
 			setCurrentPage("editor");
 			setSelectedNote(note);
 		} catch (error) {
-			console.error("Error:", error);
+			toast.error("Failed to create note");
 		}
 	};
 	const { setCurrentPage } = useContext(PageContext);

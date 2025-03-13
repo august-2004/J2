@@ -40,6 +40,9 @@ const CardLayout = () => {
 					<Card className="card" key={note._id} note={note} />
 				))}
 			</Masonry>
+			<footer className="absolute bottom-0 left-0 right-0 text-center text-gray-500 text-xs">
+				Made with ♥️ by Vanji
+			</footer>
 		</div>
 	);
 };
