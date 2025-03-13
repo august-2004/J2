@@ -2,20 +2,49 @@
 
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import TextAlign from "@tiptap/extension-text-align";
+import Link from "@tiptap/extension-link";
+import Placeholder from "@tiptap/extension-placeholder";
+import Underline from "@tiptap/extension-underline";
 import "./styles/Editor.css";
 import { Minimize2 } from "lucide-react";
-import { useRef, useState, useContext } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 import { NotesContext } from "@/utils/NotesContext";
 import DOMPurify from "dompurify";
+import Toolbar from "./Toolbar";
 
 export default function Editor({ note, onClose }: any) {
+	const [isVisible, setIsVisible] = useState(false);
 	const editor = useEditor({
-		extensions: [StarterKit],
+		extensions: [
+			StarterKit,
+			TextAlign.configure({ types: ["heading", "paragraph"] }),
+			Link.configure({ autolink: true }),
+			Placeholder.configure({ placeholder: "Start typing..." }),
+			Underline,
+		],
 		content: note.content,
 		onUpdate: ({ editor }) => {
 			handleChange(editor);
 		},
 	});
+
+	useEffect(() => {
+		// Delay setting visibility to create animation effect
+		const timer = setTimeout(() => {
+			setIsVisible(true);
+		}, 50);
+
+		if (textAreaRef.current) {
+			textAreaRef.current.focus();
+		}
+		if (editor) {
+			editor.commands.focus();
+		}
+
+		return () => clearTimeout(timer);
+	}, [editor]);
+
 	const keyUpTime = useRef<null | NodeJS.Timeout>(null);
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
 	const [saving, setSaving] = useState(false);
@@ -39,7 +68,7 @@ export default function Editor({ note, onClose }: any) {
 
 	const saveData = async (title: string, content: string) => {
 		try {
-			const response = await fetch("http://localhost:3100/update", {
+			const response = await fetch("api/update", {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
@@ -53,14 +82,34 @@ export default function Editor({ note, onClose }: any) {
 		}
 	};
 
+	const handleClose = () => {
+		setIsVisible(false);
+		// Delay actual closing to allow animation to complete
+		setTimeout(() => {
+			onClose();
+		}, 300);
+	};
+	const handleOverlayClick = (e: React.MouseEvent) => {
+		if (e.target === e.currentTarget) {
+			handleClose();
+		}
+	};
+
 	return (
-		<div className="editor-overlay">
-			<div className="editor" style={{ backgroundColor: note.contentColor }}>
+		<div
+			className={`editor-overlay ${isVisible ? "visible" : ""}`}
+			onClick={handleOverlayClick}
+		>
+			<div
+				className={`editor ${isVisible ? "visible" : ""}`}
+				style={{ backgroundColor: note.contentColor }}
+			>
 				<div
 					className="editor-header"
 					style={{ backgroundColor: note.titleColor }}
 				>
 					<textarea
+						style={{ fontWeight: "800" }}
 						onKeyUp={() => {
 							handleChange(editor);
 						}}
@@ -68,9 +117,11 @@ export default function Editor({ note, onClose }: any) {
 						defaultValue={note.title || "untitled"}
 					/>
 					{saving && <div className="saving">Saving</div>}
-					<Minimize2 className="minimize" onClick={onClose} />
+					<Minimize2 className="minimize" onClick={handleClose} />
 				</div>
-				<div className="editor-body">
+				<Toolbar editor={editor} color={note.titleColor} />
+
+				<div className="editor-body" style={{ fontWeight: "400" }}>
 					<EditorContent editor={editor} />
 				</div>
 			</div>

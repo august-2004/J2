@@ -3,7 +3,7 @@ import NoteModel from "../Schemas/NoteSchema.mjs";
 
 const noteCrud = Router();
 
-noteCrud.post("/create", async (req, res) => {
+noteCrud.put("/create", async (req, res) => {
 	const { titleColor, contentColor } = req.body;
 	const owner = "vanji";
 	console.log(titleColor, contentColor);
@@ -35,6 +35,7 @@ noteCrud.put("/update", async (req, res) => {
 noteCrud.delete("/delete", async (req, res) => {
 	const { id } = req.body;
 	await NoteModel.deleteOne({ _id: id });
+	res.json({ message: "Note deleted" });
 });
 
 export default noteCrud;

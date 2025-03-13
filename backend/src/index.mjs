@@ -7,7 +7,7 @@ import authRouter from "./Routes/AuthRouter.mjs";
 import noteCrud from "./Routes/NoteCrud.mjs";
 const app = express();
 const server = http.createServer(app);
-app.use(cors({ origin: "*" }));
+
 app.use(express.json());
 app.use(authRouter);
 app.use(noteCrud);

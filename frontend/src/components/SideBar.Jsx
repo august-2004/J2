@@ -7,8 +7,8 @@ const SideBar = () => {
 	const { setNotes, setSelectedNote } = useContext(NotesContext);
 	const createNote = async ({ titleColor, contentColor }) => {
 		try {
-			const response = await fetch("http://localhost:3100/create", {
-				method: "POST",
+			const response = await fetch("api/create", {
+				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 				},

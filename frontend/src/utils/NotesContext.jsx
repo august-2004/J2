@@ -11,7 +11,7 @@ const NotesProvider = ({ children }) => {
 	}, []);
 
 	const fetchNotes = async () => {
-		const response = await fetch("http://localhost:3100/read");
+		const response = await fetch("/api/read");
 		const data = await response.json();
 		setNotes(data);
 		console.log(data);
