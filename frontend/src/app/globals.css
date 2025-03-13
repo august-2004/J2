@@ -22,6 +22,7 @@ body {
 	justify-content: space-between;
 	position: sticky;
 	top: 0;
+	z-index: 3;
 	align-items: center;
 }
 .top-bar .circle {
@@ -171,5 +172,11 @@ body {
 	.colorpicker {
 		margin-top: 0;
 		margin-bottom: 0;
+	}
+	.card-layout {
+		flex: 1;
+		overflow-y: auto;
+		height: 91vh;
+		margin: 0px;
 	}
 }

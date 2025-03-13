@@ -12,6 +12,7 @@ import { useRef, useState, useContext, useEffect } from "react";
 import { NotesContext } from "@/utils/NotesContext";
 import DOMPurify from "dompurify";
 import Toolbar from "./Toolbar";
+import Loader from "./Loader";
 
 export default function Editor({ note, onClose }: any) {
 	const [isVisible, setIsVisible] = useState(false);
@@ -63,7 +64,7 @@ export default function Editor({ note, onClose }: any) {
 				setSaving(false);
 				await fetchNotes();
 			}
-		}, 2000);
+		}, 1000);
 	};
 
 	const saveData = async (title: string, content: string) => {
@@ -116,8 +117,10 @@ export default function Editor({ note, onClose }: any) {
 						ref={textAreaRef}
 						defaultValue={note.title || "untitled"}
 					/>
-					{saving && <div className="saving">Saving</div>}
-					<Minimize2 className="minimize" onClick={handleClose} />
+					<div className="flex align-content:center">
+						{saving && <Loader />}
+						<Minimize2 className="minimize" onClick={handleClose} />
+					</div>
 				</div>
 				<Toolbar editor={editor} color={note.titleColor} />
 

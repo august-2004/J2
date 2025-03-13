@@ -8,7 +8,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	z-index: 2;
+	z-index: 4;
 	opacity: 0;
 	transition: opacity 0.2s ease-in-out;
 }
@@ -20,13 +20,14 @@
 	width: 80%;
 	height: 90%;
 	margin: 10px auto;
-	z-index: 3;
+	z-index: 4;
 	position: relative;
 	border-radius: 10px;
 	margin-bottom: 10px;
 	transform: scale(0.9);
 	opacity: 0;
 	transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+	overflow: hidden;
 }
 .editor.visible {
 	transform: scale(1);
@@ -83,6 +84,7 @@
 	border: none;
 	outline: none;
 	cursor: pointer;
+	height: 20px;
 	margin-right: 10px;
 }
 

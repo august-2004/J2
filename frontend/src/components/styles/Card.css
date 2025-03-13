@@ -1,74 +1,69 @@
-
 .card-header p {
-    background-color: inherit;
-    outline: none;
-    border: none;
-    font-weight: 600;
-    resize: none;
-    overflow: hidden;
-    height: 100%;
-    flex: 1;
-    word-wrap: break-word;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
+	background-color: inherit;
+	outline: none;
+	border: none;
+	font-weight: 600;
+	resize: none;
+	height: 100%;
+	flex: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
-.card-body{
-    resize: none;
-    width: 100%;
-    background-color: inherit;
-    outline: none;
-    overflow: hidden;
-    word-wrap: break-word;
-    white-space: pre-wrap; 
-    overflow-wrap: break-word;
+.card-body {
+	resize: none;
+	width: 100%;
+	background-color: inherit;
+	outline: none;
+	overflow: hidden;
+	word-wrap: break-word;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
 }
-.card{
-    width: 100%;
-    min-width: 200px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    /* box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075), 0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075), 0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075); */
-    
+.card {
+	width: 100%;
+	min-width: 200px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+	/* box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075), 0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075), 0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075); */
 }
-.card-header{
-    border-top-left-radius: inherit;
-    border-top-right-radius: inherit;
-    padding: 5px;
-    height: 35px;
-    padding-left: 10px;
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-}
-
-.saving{
-    margin-right: 5px;
+.card-header {
+	border-top-left-radius: inherit;
+	border-top-right-radius: inherit;
+	padding: 5px;
+	height: 35px;
+	padding-left: 10px;
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	text-overflow: ellipsis;
 }
 
-.card-body{
-    padding: 1em;
-        border-bottom-left-radius: inherit;
-        border-bottom-right-radius: inherit;
+.saving {
+	margin-right: 5px;
+}
+
+.card-body {
+	padding: 1em;
+	border-bottom-left-radius: inherit;
+	border-bottom-right-radius: inherit;
 }
 
 .card-body ::-webkit-scrollbar {
-    width: 12px;
-
+	width: 12px;
 }
 
 .card-body textarea::-webkit-scrollbar-track {
-    background: none
-
+	background: none;
 }
 
 .card-body textarea::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.241);
-    border-radius: 10px;
-
+	background: rgba(255, 255, 255, 0.241);
+	border-radius: 10px;
 }
 
 .card-body textarea::-webkit-scrollbar-thumb:hover {
-    background: rgba(67, 67, 67, 0.241);
-    cursor: pointer;
+	background: rgba(67, 67, 67, 0.241);
+	cursor: pointer;
 }
