@@ -118,10 +118,10 @@ export default function Editor({ note, onClose }: any) {
 						ref={textAreaRef}
 						defaultValue={note.title || "untitled"}
 					/>
-					<div className="flex align-content:center">
+					<div className="flex items-center">
 						{saving && <Loader />}
 						<Kebab note_id={note._id} color={note} />
-						<Minimize2 className="minimize" onClick={handleClose} />
+						<Minimize2 className="minimize " onClick={handleClose} />
 					</div>
 				</div>
 				<Toolbar editor={editor} color={note.titleColor} />
