@@ -6,6 +6,7 @@ import { toast } from "sonner";
 const NotesProvider = ({ children }) => {
 	const [notes, setNotes] = useState([]);
 	const [selectedNote, setSelectedNote] = useState(null);
+	const [searchQuery, setSearchQuery] = useState("");
 	useEffect(() => {
 		fetchNotes();
 	}, []);
@@ -20,12 +21,25 @@ const NotesProvider = ({ children }) => {
 			toast.error("Failed to fetch notes");
 		}
 	};
+
+	const handleSearch = (query) => {
+		setSearchQuery(query);
+	};
+
+	const filteredNotes = notes.filter(
+		(note) =>
+			note.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+			note.content?.toLowerCase().includes(searchQuery.toLowerCase())
+	);
+
 	const contextData = {
-		notes,
+		notes: filteredNotes,
 		setNotes,
 		fetchNotes,
 		selectedNote,
 		setSelectedNote,
+		searchQuery,
+		setSearchQuery: handleSearch,
 	};
 
 	return (

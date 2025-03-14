@@ -3,114 +3,275 @@ import styled from "styled-components";
 
 const Loader = () => {
 	return (
-		<StyledWrapper className="content-center mx-5">
-			<div className="loader content-center">
-				<div className="bar1" />
-				<div className="bar2" />
-				<div className="bar3" />
-				<div className="bar4" />
-				<div className="bar5" />
-				<div className="bar6" />
-				<div className="bar7" />
-				<div className="bar8" />
-				<div className="bar9" />
-				<div className="bar10" />
-				<div className="bar11" />
-				<div className="bar12" />
-			</div>
+		<StyledWrapper>
+			<svg className="pl" width={240} height={240} viewBox="0 0 240 240">
+				<circle
+					className="pl__ring pl__ring--a"
+					cx={120}
+					cy={120}
+					r={105}
+					fill="none"
+					stroke="#000"
+					strokeWidth={20}
+					strokeDasharray="0 660"
+					strokeDashoffset={-330}
+					strokeLinecap="round"
+				/>
+				<circle
+					className="pl__ring pl__ring--b"
+					cx={120}
+					cy={120}
+					r={35}
+					fill="none"
+					stroke="#000"
+					strokeWidth={20}
+					strokeDasharray="0 220"
+					strokeDashoffset={-110}
+					strokeLinecap="round"
+				/>
+				<circle
+					className="pl__ring pl__ring--c"
+					cx={85}
+					cy={120}
+					r={70}
+					fill="none"
+					stroke="#000"
+					strokeWidth={20}
+					strokeDasharray="0 440"
+					strokeLinecap="round"
+				/>
+				<circle
+					className="pl__ring pl__ring--d"
+					cx={155}
+					cy={120}
+					r={70}
+					fill="none"
+					stroke="#000"
+					strokeWidth={20}
+					strokeDasharray="0 440"
+					strokeLinecap="round"
+				/>
+			</svg>
 		</StyledWrapper>
 	);
 };
 
 const StyledWrapper = styled.div`
-	.loader {
-		position: relative;
+	.pl {
 		width: 20px;
 		height: 20px;
-		border-radius: 10px;
+		margin-right: 20px;
 	}
 
-	.loader div {
-		width: 8%;
-		height: 24%;
-		background: rgb(255, 255, 255);
-		position: absolute;
-		left: 50%;
-		top: 30%;
-		opacity: 0;
-		border-radius: 50px;
-		box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-		animation: fade458 1s linear infinite;
+	.pl__ring {
+		animation: ringA 2s linear infinite;
 	}
 
-	@keyframes fade458 {
-		from {
-			opacity: 1;
+	.pl__ring--a {
+		stroke: #1e0b4c;
+	}
+
+	.pl__ring--b {
+		animation-name: ringB;
+		stroke: #4c0b24;
+	}
+
+	.pl__ring--c {
+		animation-name: ringC;
+		stroke: #0b3a4c;
+	}
+
+	.pl__ring--d {
+		animation-name: ringD;
+		stroke: #4c4c0b;
+	}
+
+	/* Animations */
+	@keyframes ringA {
+		from,
+		4% {
+			stroke-dasharray: 0 660;
+			stroke-width: 20;
+			stroke-dashoffset: -330;
 		}
 
+		12% {
+			stroke-dasharray: 60 600;
+			stroke-width: 30;
+			stroke-dashoffset: -335;
+		}
+
+		32% {
+			stroke-dasharray: 60 600;
+			stroke-width: 30;
+			stroke-dashoffset: -595;
+		}
+
+		40%,
+		54% {
+			stroke-dasharray: 0 660;
+			stroke-width: 20;
+			stroke-dashoffset: -660;
+		}
+
+		62% {
+			stroke-dasharray: 60 600;
+			stroke-width: 30;
+			stroke-dashoffset: -665;
+		}
+
+		82% {
+			stroke-dasharray: 60 600;
+			stroke-width: 30;
+			stroke-dashoffset: -925;
+		}
+
+		90%,
 		to {
-			opacity: 0.25;
+			stroke-dasharray: 0 660;
+			stroke-width: 20;
+			stroke-dashoffset: -990;
 		}
 	}
 
-	.loader .bar1 {
-		transform: rotate(0deg) translate(0, -130%);
-		animation-delay: 0s;
+	@keyframes ringB {
+		from,
+		12% {
+			stroke-dasharray: 0 220;
+			stroke-width: 20;
+			stroke-dashoffset: -110;
+		}
+
+		20% {
+			stroke-dasharray: 20 200;
+			stroke-width: 30;
+			stroke-dashoffset: -115;
+		}
+
+		40% {
+			stroke-dasharray: 20 200;
+			stroke-width: 30;
+			stroke-dashoffset: -195;
+		}
+
+		48%,
+		62% {
+			stroke-dasharray: 0 220;
+			stroke-width: 20;
+			stroke-dashoffset: -220;
+		}
+
+		70% {
+			stroke-dasharray: 20 200;
+			stroke-width: 30;
+			stroke-dashoffset: -225;
+		}
+
+		90% {
+			stroke-dasharray: 20 200;
+			stroke-width: 30;
+			stroke-dashoffset: -305;
+		}
+
+		98%,
+		to {
+			stroke-dasharray: 0 220;
+			stroke-width: 20;
+			stroke-dashoffset: -330;
+		}
 	}
 
-	.loader .bar2 {
-		transform: rotate(30deg) translate(0, -130%);
-		animation-delay: -1.1s;
+	@keyframes ringC {
+		from {
+			stroke-dasharray: 0 440;
+			stroke-width: 20;
+			stroke-dashoffset: 0;
+		}
+
+		8% {
+			stroke-dasharray: 40 400;
+			stroke-width: 30;
+			stroke-dashoffset: -5;
+		}
+
+		28% {
+			stroke-dasharray: 40 400;
+			stroke-width: 30;
+			stroke-dashoffset: -175;
+		}
+
+		36%,
+		58% {
+			stroke-dasharray: 0 440;
+			stroke-width: 20;
+			stroke-dashoffset: -220;
+		}
+
+		66% {
+			stroke-dasharray: 40 400;
+			stroke-width: 30;
+			stroke-dashoffset: -225;
+		}
+
+		86% {
+			stroke-dasharray: 40 400;
+			stroke-width: 30;
+			stroke-dashoffset: -395;
+		}
+
+		94%,
+		to {
+			stroke-dasharray: 0 440;
+			stroke-width: 20;
+			stroke-dashoffset: -440;
+		}
 	}
 
-	.loader .bar3 {
-		transform: rotate(60deg) translate(0, -130%);
-		animation-delay: -1s;
-	}
+	@keyframes ringD {
+		from,
+		8% {
+			stroke-dasharray: 0 440;
+			stroke-width: 20;
+			stroke-dashoffset: 0;
+		}
 
-	.loader .bar4 {
-		transform: rotate(90deg) translate(0, -130%);
-		animation-delay: -0.9s;
-	}
+		16% {
+			stroke-dasharray: 40 400;
+			stroke-width: 30;
+			stroke-dashoffset: -5;
+		}
 
-	.loader .bar5 {
-		transform: rotate(120deg) translate(0, -130%);
-		animation-delay: -0.8s;
-	}
+		36% {
+			stroke-dasharray: 40 400;
+			stroke-width: 30;
+			stroke-dashoffset: -175;
+		}
 
-	.loader .bar6 {
-		transform: rotate(150deg) translate(0, -130%);
-		animation-delay: -0.7s;
-	}
+		44%,
+		50% {
+			stroke-dasharray: 0 440;
+			stroke-width: 20;
+			stroke-dashoffset: -220;
+		}
 
-	.loader .bar7 {
-		transform: rotate(180deg) translate(0, -130%);
-		animation-delay: -0.6s;
-	}
+		58% {
+			stroke-dasharray: 40 400;
+			stroke-width: 30;
+			stroke-dashoffset: -225;
+		}
 
-	.loader .bar8 {
-		transform: rotate(210deg) translate(0, -130%);
-		animation-delay: -0.5s;
-	}
+		78% {
+			stroke-dasharray: 40 400;
+			stroke-width: 30;
+			stroke-dashoffset: -395;
+		}
 
-	.loader .bar9 {
-		transform: rotate(240deg) translate(0, -130%);
-		animation-delay: -0.4s;
-	}
-
-	.loader .bar10 {
-		transform: rotate(270deg) translate(0, -130%);
-		animation-delay: -0.3s;
-	}
-
-	.loader .bar11 {
-		transform: rotate(300deg) translate(0, -130%);
-		animation-delay: -0.2s;
-	}
-
-	.loader .bar12 {
-		transform: rotate(330deg) translate(0, -130%);
-		animation-delay: -0.1s;
+		86%,
+		to {
+			stroke-dasharray: 0 440;
+			stroke-width: 20;
+			stroke-dashoffset: -440;
+		}
 	}
 `;
 

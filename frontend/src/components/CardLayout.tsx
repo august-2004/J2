@@ -31,6 +31,7 @@ const CardLayout = () => {
 					fetchNotes={fetchNotes}
 				/>
 			)}
+
 			<Masonry
 				breakpointCols={breakpointColumns}
 				className="masonry-grid"

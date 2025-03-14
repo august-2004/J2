@@ -31,7 +31,7 @@ export default function Kebab({ color, note_id }: any) {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<button className="p-2 focus:outline-none">
-					<MoreVertical className="w-5 h-5" />
+					<MoreVertical color={color.contentColor} className="w-5 h-5" />
 				</button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent
