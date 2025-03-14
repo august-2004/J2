@@ -9,12 +9,12 @@ const SearchInput = () => {
 	};
 
 	return (
-		<div className="search-container">
+		<div className="search-container items-center justify-center flex">
 			<input
 				type="text"
 				placeholder="Search..."
 				onChange={handleSearchChange}
-				className="search-input bg-black rounded-full h-full px-3 border-2 outline-none border-white"
+				className="search-input bg-black rounded-full h-9 px-3 border outline-none border-white"
 			/>
 		</div>
 	);

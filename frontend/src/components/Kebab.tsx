@@ -9,14 +9,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreVertical, Check } from "lucide-react";
 import { NotesContext } from "@/utils/NotesContext";
+import { PageContext } from "@/utils/PageContext";
 import { useContext } from "react";
 import { toast } from "sonner";
 import { FolderContext } from "@/utils/FolderContext";
 
 export default function Kebab({ color, note_id }: any) {
 	const { fetchNotes }: any = useContext(NotesContext);
-	const { folders, addNote, createFolder, removeNote }: any =
+	const { folders, addNote, createFolder, removeNote, fetchFolders }: any =
 		useContext(FolderContext);
+	const { setCurrentPage } = useContext(PageContext);
 
 	const deleteData = async (id: string) => {
 		try {
@@ -29,6 +31,7 @@ export default function Kebab({ color, note_id }: any) {
 			});
 			const data = await response.json();
 			fetchNotes();
+			setCurrentPage("home");
 		} catch (err) {
 			toast.error("Failed to delete note");
 		}
@@ -113,6 +116,8 @@ export default function Kebab({ color, note_id }: any) {
 										e.preventDefault();
 										const folder = e.currentTarget.value;
 										await createFolder(folder);
+										fetchFolders();
+										fetchNotes();
 										e.stopPropagation();
 									}
 								}}
@@ -139,8 +144,12 @@ export default function Kebab({ color, note_id }: any) {
 											e.preventDefault();
 											if (isInFolder) {
 												await removeNote(folder._id, note_id);
+												fetchFolders();
+												fetchNotes();
 											} else {
 												await addNote(folder._id, note_id);
+												fetchFolders();
+												fetchNotes();
 											}
 										}}
 									>

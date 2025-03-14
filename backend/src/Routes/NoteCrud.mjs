@@ -1,5 +1,6 @@
 import { Router } from "express";
 import NoteModel from "../Schemas/NoteSchema.mjs";
+import FolderModel from "../Schemas/FolderSchema.mjs";
 
 const noteCrud = Router();
 
@@ -34,6 +35,11 @@ noteCrud.put("/update", async (req, res) => {
 
 noteCrud.delete("/delete", async (req, res) => {
 	const { id } = req.body;
+	await FolderModel.updateMany(
+		{ owner: "vanji" },
+		{ $pull: { notes: { $in: [id] } } },
+		{ multi: true }
+	);
 	await NoteModel.deleteOne({ _id: id });
 	res.json({ message: "Note deleted" });
 });

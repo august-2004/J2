@@ -25,16 +25,16 @@ const SideBar = () => {
 			setCurrentPage("editor");
 			setSelectedNote(note);
 		} catch (error) {
-			toast.error("Failed to create note");
+			toast.error(error);
 		}
 	};
 
-	const { setCurrentPage } = useContext(PageContext);
+	const { setCurrentLayout, setCurrentPage } = useContext(PageContext);
 
 	// Toggle function to switch between views
 	const toggleView = () => {
 		setShowFolders(!showFolders);
-		setCurrentPage(showFolders ? "home" : "folders");
+		setCurrentLayout(showFolders ? "home" : "folder");
 	};
 
 	const colors = {
@@ -45,7 +45,7 @@ const SideBar = () => {
 	};
 
 	return (
-		<div className="sidebar ">
+		<div className="sidebar">
 			<div className="palatte">
 				{Object.values(colors).map((color, index) => {
 					return (
@@ -63,9 +63,13 @@ const SideBar = () => {
 					);
 				})}
 				{showFolders ? (
-					<Home className="icon-bar " onClick={toggleView} />
+					<Home className="icon-bar" strokeWidth={0.5} onClick={toggleView} />
 				) : (
-					<FolderOpen className="icon-bar " onClick={toggleView} />
+					<FolderOpen
+						className="icon-bar"
+						strokeWidth={0.5}
+						onClick={toggleView}
+					/>
 				)}
 			</div>
 		</div>

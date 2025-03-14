@@ -14,6 +14,7 @@ import DOMPurify from "dompurify";
 import Toolbar from "./Toolbar";
 import Loader from "./Loader";
 import { toast } from "sonner";
+import Kebab from "./Kebab";
 
 export default function Editor({ note, onClose }: any) {
 	const [isVisible, setIsVisible] = useState(false);
@@ -51,7 +52,6 @@ export default function Editor({ note, onClose }: any) {
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
 	const [saving, setSaving] = useState(false);
 	const { fetchNotes } = useContext(NotesContext);
-
 	const handleChange = async (editor: any) => {
 		setSaving(true);
 		if (keyUpTime.current) {
@@ -120,6 +120,7 @@ export default function Editor({ note, onClose }: any) {
 					/>
 					<div className="flex align-content:center">
 						{saving && <Loader />}
+						<Kebab note_id={note._id} color={note} />
 						<Minimize2 className="minimize" onClick={handleClose} />
 					</div>
 				</div>

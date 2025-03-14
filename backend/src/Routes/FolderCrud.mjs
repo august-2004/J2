@@ -1,6 +1,6 @@
 import { Router } from "express";
 import FolderModel from "../Schemas/FolderSchema.mjs";
-
+import NoteModel from "../Schemas/NoteSchema.mjs";
 const folderCrud = Router();
 
 folderCrud.put("/folder/create", async (req, res) => {
@@ -49,11 +49,14 @@ folderCrud.put("/folder/addNote", async (req, res) => {
 			});
 		}
 
-		console.log("Adding note:", noteId, "to folder:", folderId);
-
 		const updatedFolder = await FolderModel.findOneAndUpdate(
 			{ _id: folderId },
 			{ $push: { notes: noteId } },
+			{ new: true }
+		);
+		const updateNote = await NoteModel.findOneAndUpdate(
+			{ _id: noteId },
+			{ $push: { folders: folderId } },
 			{ new: true }
 		);
 
@@ -77,12 +80,22 @@ folderCrud.put("/folder/removeNote", async (req, res) => {
 		{ $pull: { notes: noteId } },
 		{ new: true }
 	);
+	const updatedNote = await NoteModel.findOneAndUpdate(
+		{ _id: noteId },
+		{ $pull: { folders: folderId } },
+		{ new: true }
+	);
 	res.json(updatedFolder);
 });
 
 folderCrud.delete("/folder/delete", async (req, res) => {
 	const { id } = req.body;
 	await FolderModel.deleteOne({ _id: id });
+	await NoteModel.updateMany(
+		{ folders: { $in: [id] } },
+		{ $pull: { folders: { $in: [id] } } },
+		{ multi: true }
+	);
 	res.json({ message: "Folder deleted" });
 });
 

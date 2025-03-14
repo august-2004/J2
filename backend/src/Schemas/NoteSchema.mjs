@@ -12,6 +12,7 @@ const NoteSchema = new Schema({
 	createdAt: { type: Date, default: Date.now, required: true },
 	updatedAt: { type: Date, default: Date.now, required: true },
 	isPinned: { type: Boolean, default: false },
+	folders: [{ type: Schema.Types.ObjectId, ref: "Folder", default: [] }],
 });
 
 NoteSchema.pre("save", function (next) {

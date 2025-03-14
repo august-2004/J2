@@ -71,6 +71,21 @@ const FolderProvider = ({ children }) => {
 		}
 	};
 
+	const deleteFolder = async (folderId) => {
+		try {
+			const response = await fetch("/api/folder/delete", {
+				method: "DELETE",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ folderId }),
+			});
+			const data = await response.json();
+			toast.success("Folder deleted");
+		} catch (error) {
+			toast.error("Failed to delete folder");
+			console.error(error);
+		}
+	};
+
 	const contextData = {
 		folders,
 		setFolders,
@@ -80,6 +95,7 @@ const FolderProvider = ({ children }) => {
 		createFolder,
 		addNote,
 		removeNote,
+		deleteFolder,
 	};
 
 	return (

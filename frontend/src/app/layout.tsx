@@ -4,6 +4,13 @@ import { Inter } from "next/font/google";
 
 export const inter = Inter({ subsets: ["latin"] });
 
+export const metadata: Metadata = {
+	title: "My App",
+	icons: {
+		icon: "./favicon.png",
+	},
+};
+
 export default function RootLayout({
 	children,
 }: Readonly<{

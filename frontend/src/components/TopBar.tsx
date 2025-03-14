@@ -6,22 +6,22 @@ const TopBar = () => {
 	return (
 		<div className="top-bar">
 			<Image
-				src="/hero-logo.svg"
+				src="/hero-logo.png"
 				width={120}
-				height={0}
-				className="hidden md:block mt-10"
+				height={120}
+				className="hidden md:block ml-5"
 				alt="logo desktop version"
 			/>
 			<Image
-				src="/hero-logo.svg"
-				width={80}
-				height={20}
+				src="/hero-logo.png"
+				width={120}
+				height={80}
 				className="block md:hidden p-2"
 				alt=" logo mobile version"
 			/>
 			<div className="icons">
 				<SearchInput />
-				<CircleUser strokeWidth={1.2} className="circle" />
+				<CircleUser strokeWidth={0.5} size={40} className="circle" />
 			</div>
 		</div>
 	);
