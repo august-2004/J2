@@ -3,14 +3,20 @@ import {
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
+	DropdownMenuSub,
+	DropdownMenuSubTrigger,
+	DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
-import { MoreVertical } from "lucide-react";
+import { MoreVertical, Check } from "lucide-react";
 import { NotesContext } from "@/utils/NotesContext";
 import { useContext } from "react";
 import { toast } from "sonner";
+import { FolderContext } from "@/utils/FolderContext";
 
 export default function Kebab({ color, note_id }: any) {
 	const { fetchNotes }: any = useContext(NotesContext);
+	const { folders, addNote, createFolder, removeNote }: any =
+		useContext(FolderContext);
 
 	const deleteData = async (id: string) => {
 		try {
@@ -31,7 +37,7 @@ export default function Kebab({ color, note_id }: any) {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<button className="p-2 focus:outline-none">
-					<MoreVertical color={color.contentColor} className="w-5 h-5" />
+					<MoreVertical className="w-5 h-5" />
 				</button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent
@@ -58,6 +64,96 @@ export default function Kebab({ color, note_id }: any) {
 				>
 					Delete
 				</DropdownMenuItem>
+				<DropdownMenuSub>
+					<DropdownMenuSubTrigger
+						className="transition-colors"
+						style={
+							{
+								"--color-content": color.titleColor,
+								borderRadius: "7px",
+								backgroundColor: "transparent",
+							} as React.CSSProperties
+						}
+						onMouseEnter={(e) =>
+							(e.currentTarget.style.backgroundColor = color.titleColor)
+						}
+						onMouseLeave={(e) =>
+							(e.currentTarget.style.backgroundColor = "transparent")
+						}
+					>
+						Add to Folder
+					</DropdownMenuSubTrigger>
+					<DropdownMenuSubContent
+						style={
+							{
+								backgroundColor: color.contentColor,
+								border: "none",
+								boxShadow: "0px 0px 10px 2px rgba(0,0,0,0.37)",
+								color: "white",
+								borderRadius: "10px",
+							} as React.CSSProperties
+						}
+					>
+						<DropdownMenuItem
+							className="mb-1 transition-colors"
+							style={
+								{
+									backgroundColor: color.titleColor,
+									borderRadius: "7px",
+								} as React.CSSProperties
+							}
+						>
+							<input
+								className="h-6 bg-inherit outline-none"
+								type="text"
+								placeholder="Create Folder"
+								onClick={(e) => e.stopPropagation()}
+								onKeyDown={async (e) => {
+									if (e.key === "Enter") {
+										e.preventDefault();
+										const folder = e.currentTarget.value;
+										await createFolder(folder);
+										e.stopPropagation();
+									}
+								}}
+							/>
+						</DropdownMenuItem>
+
+						{folders.length > 0 ? (
+							folders.map((folder: any) => {
+								let isInFolder = folder.notes && folder.notes.includes(note_id);
+								return (
+									<DropdownMenuItem
+										key={folder._id}
+										className={`hover:bg-[var(--color-content)] transition-colors flex justify-between items-center mb-1 ${
+											isInFolder ? "bg-[var(--color-content)]" : ""
+										}`}
+										style={
+											{
+												"--color-content": color.titleColor,
+												borderRadius: "7px",
+											} as React.CSSProperties
+										}
+										onClick={async (e) => {
+											e.stopPropagation();
+											e.preventDefault();
+											if (isInFolder) {
+												await removeNote(folder._id, note_id);
+											} else {
+												await addNote(folder._id, note_id);
+											}
+										}}
+									>
+										<span>{folder.title}</span>
+										{isInFolder && <Check className="w-4 h-4 ml-2" />}
+									</DropdownMenuItem>
+								);
+							})
+						) : (
+							<></>
+						)}
+					</DropdownMenuSubContent>
+				</DropdownMenuSub>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

@@ -76,8 +76,16 @@ body ::-webkit-scrollbar-thumb:hover {
 	background: rgba(67, 67, 67, 0.241);
 	cursor: pointer;
 }
-
+.icon-bar {
+	height: 40px;
+	width: 40px;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	cursor: pointer;
+}
 .colorpicker {
+	cursor: pointer;
 	outline: 5px solid;
 	height: 40px;
 	width: 40px;

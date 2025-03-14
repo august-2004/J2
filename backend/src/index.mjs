@@ -5,12 +5,14 @@ import http from "http";
 import mongoose from "mongoose";
 import authRouter from "./Routes/AuthRouter.mjs";
 import noteCrud from "./Routes/NoteCrud.mjs";
+import folderCrud from "./Routes/FolderCrud.mjs";
 const app = express();
 const server = http.createServer(app);
 
 app.use(express.json());
 app.use(authRouter);
 app.use(noteCrud);
+app.use(folderCrud);
 
 try {
 	mongoose.connect(process.env.MONGO_URI).then(() => {

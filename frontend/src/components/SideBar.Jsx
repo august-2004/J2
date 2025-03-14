@@ -1,11 +1,13 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { NotesContext } from "@/utils/NotesContext";
 import { PageContext } from "@/utils/PageContext";
+import { FolderOpen, Home } from "lucide-react";
 import { toast } from "sonner";
 
 const SideBar = () => {
 	const { setNotes, setSelectedNote } = useContext(NotesContext);
+	const [showFolders, setShowFolders] = useState(false);
 	const createNote = async ({ titleColor, contentColor }) => {
 		try {
 			const response = await fetch("api/create", {
@@ -26,7 +28,14 @@ const SideBar = () => {
 			toast.error("Failed to create note");
 		}
 	};
+
 	const { setCurrentPage } = useContext(PageContext);
+
+	// Toggle function to switch between views
+	const toggleView = () => {
+		setShowFolders(!showFolders);
+		setCurrentPage(showFolders ? "home" : "folders");
+	};
 
 	const colors = {
 		cyanoViolet: ["#150836", "#1E0B4C"],
@@ -36,7 +45,7 @@ const SideBar = () => {
 	};
 
 	return (
-		<div className="sidebar">
+		<div className="sidebar ">
 			<div className="palatte">
 				{Object.values(colors).map((color, index) => {
 					return (
@@ -53,6 +62,11 @@ const SideBar = () => {
 						></div>
 					);
 				})}
+				{showFolders ? (
+					<Home className="icon-bar " onClick={toggleView} />
+				) : (
+					<FolderOpen className="icon-bar " onClick={toggleView} />
+				)}
 			</div>
 		</div>
 	);
