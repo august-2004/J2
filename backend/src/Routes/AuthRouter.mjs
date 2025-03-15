@@ -314,7 +314,6 @@ authRouter.get(
 		res.send({
 			success: true,
 			message: "You are logged in",
-			user: req.user,
 		});
 	}
 );
