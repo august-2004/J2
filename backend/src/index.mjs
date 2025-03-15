@@ -9,6 +9,12 @@ import folderCrud from "./Routes/FolderCrud.mjs";
 import cookieParser from "cookie-parser";
 const app = express();
 const server = http.createServer(app);
+app.use(
+	cors({
+		origin: ["http://theskribe.vercel.app", "http://theskribe.vercel.app/"],
+		credentials: true,
+	})
+);
 app.use(cookieParser());
 app.use(express.json());
 app.use(authRouter);
