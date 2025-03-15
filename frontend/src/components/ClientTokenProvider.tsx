@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import HeroPage from "@/components/HeroPage";
 
 async function validateToken(token: string | null) {
+	alert(token);
 	if (!token) return false;
 
 	try {
