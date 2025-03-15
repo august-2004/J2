@@ -25,14 +25,17 @@ export default function LoginOverlay() {
 				return;
 			}
 			setIsLoggingIn(true);
-			const response = await fetch("/api/login", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				credentials: "include",
-				body: JSON.stringify({ email, password }),
-			});
+			const response = await fetch(
+				"https://theskribe-backend.vercel.app/login",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+					body: JSON.stringify({ email, password }),
+				}
+			);
 			const data = await response.json();
 
 			if (data.success) {
@@ -56,13 +59,16 @@ export default function LoginOverlay() {
 				return;
 			}
 			setIsSigningUp(true);
-			const response = await fetch("/api/signup", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ email, password }),
-			});
+			const response = await fetch(
+				"https://theskribe-backend.vercel.app/signup",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ email, password }),
+				}
+			);
 			const data = await response.json();
 
 			if (data.success) {
@@ -98,14 +104,17 @@ export default function LoginOverlay() {
 			}
 
 			setIsVerifyingOtp(true);
-			const response = await fetch("/api/verify-otp", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				credentials: "include",
-				body: JSON.stringify({ email, otp }),
-			});
+			const response = await fetch(
+				"https://theskribe-backend.vercel.app/verify-otp",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+					body: JSON.stringify({ email, otp }),
+				}
+			);
 
 			const data = await response.json();
 

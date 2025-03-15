@@ -14,13 +14,16 @@ const FolderProvider = ({ children }) => {
 
 	const fetchFolders = async () => {
 		try {
-			const response = await fetch("/api/folder/read", {
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				credentials: "include",
-			});
+			const response = await fetch(
+				"https://theskribe-backend.vercel.app/folder/read",
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+				}
+			);
 			const data = await response.json();
 			setFolders(data);
 		} catch (error) {
@@ -30,14 +33,17 @@ const FolderProvider = ({ children }) => {
 
 	const createFolder = async (title) => {
 		try {
-			const response = await fetch("/api/folder/create", {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				credentials: "include",
-				body: JSON.stringify({ title }),
-			});
+			const response = await fetch(
+				"https://theskribe-backend.vercel.app/folder/create",
+				{
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+					body: JSON.stringify({ title }),
+				}
+			);
 			const data = await response.json();
 			fetchFolders();
 			toast.success("Folder created");
@@ -48,14 +54,17 @@ const FolderProvider = ({ children }) => {
 
 	const addNote = async (folderId, noteId) => {
 		try {
-			const response = await fetch("/api/folder/addNote", {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				credentials: "include",
-				body: JSON.stringify({ folderId, noteId }),
-			});
+			const response = await fetch(
+				"https://theskribe-backend.vercel.app/folder/addNote",
+				{
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+					body: JSON.stringify({ folderId, noteId }),
+				}
+			);
 			const data = await response.json();
 			fetchFolders();
 		} catch (error) {
@@ -65,14 +74,17 @@ const FolderProvider = ({ children }) => {
 
 	const removeNote = async (folderId, noteId) => {
 		try {
-			const response = await fetch("/api/folder/removeNote", {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				credentials: "include",
-				body: JSON.stringify({ folderId, noteId }),
-			});
+			const response = await fetch(
+				"https://theskribe-backend.vercel.app/folder/removeNote",
+				{
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+					body: JSON.stringify({ folderId, noteId }),
+				}
+			);
 			const data = await response.json();
 			fetchFolders();
 		} catch (error) {
@@ -82,12 +94,15 @@ const FolderProvider = ({ children }) => {
 
 	const deleteFolder = async (folderId) => {
 		try {
-			const response = await fetch("/api/folder/delete", {
-				method: "DELETE",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ folderId }),
-				credentials: "include",
-			});
+			const response = await fetch(
+				"https://theskribe-backend.vercel.app/folder/delete",
+				{
+					method: "DELETE",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ folderId }),
+					credentials: "include",
+				}
+			);
 			const data = await response.json();
 			toast.success("Folder deleted");
 		} catch (error) {

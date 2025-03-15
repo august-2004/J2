@@ -13,7 +13,7 @@ export default function useAuth() {
 			if (!token) return;
 
 			try {
-				const res = await fetch("/api/check", {
+				const res = await fetch("https://theskribe-backend.vercel.app/check", {
 					method: "GET",
 					headers: {
 						Authorization: `Bearer ${token}`,
