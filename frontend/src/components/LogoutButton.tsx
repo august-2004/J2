@@ -3,14 +3,8 @@ import { LogOut } from "lucide-react";
 
 const LogoutButton = () => {
 	const handleLogout = () => {
-		fetch("https://theskribe-backend.vercel.app/logout", {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		}).then(() => {
-			window.location.href = "/";
-		});
+		localStorage.removeItem("token");
+		location.reload();
 	};
 	return (
 		<LogOut
