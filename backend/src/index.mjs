@@ -11,10 +11,13 @@ const app = express();
 const server = http.createServer(app);
 app.use(
 	cors({
-		origin: ["https://theskribe.vercel.app", "https://theskribe.vercel.app/"],
+		origin: "https://theskribe.vercel.app", // Single correct URL
 		credentials: true,
+		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+		allowedHeaders: ["Content-Type", "Authorization"],
 	})
 );
+app.options("*", cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(authRouter);
