@@ -36,7 +36,9 @@ app.use(express.json());
 app.use(authRouter);
 app.use(noteCrud);
 app.use(folderCrud);
-
+app.get("/", (req, res) => {
+	res.send("Server is running");
+});
 try {
 	mongoose.connect(process.env.MONGO_URI).then(() => {
 		console.log("Database connected");
