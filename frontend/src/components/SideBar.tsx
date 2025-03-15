@@ -8,7 +8,7 @@ import { toast } from "sonner";
 const SideBar = () => {
 	const { setNotes, setSelectedNote } = useContext(NotesContext);
 	const [showFolders, setShowFolders] = useState(false);
-	const createNote = async ({ titleColor, contentColor }) => {
+	const createNote = async ({ titleColor, contentColor }: any) => {
 		try {
 			const response = await fetch("api/create", {
 				method: "PUT",
@@ -22,10 +22,10 @@ const SideBar = () => {
 				}),
 			});
 			const note = await response.json();
-			setNotes((prevNotes) => [note, ...prevNotes]);
+			setNotes((prevNotes: any) => [note, ...prevNotes]);
 			setCurrentPage("editor");
 			setSelectedNote(note);
-		} catch (error) {
+		} catch (error: any) {
 			toast.error(error);
 		}
 	};
