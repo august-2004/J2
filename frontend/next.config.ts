@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
 		return [
 			{
 				source: "/api/:path*",
-				destination: "http://192.168.1.4:3100/:path*",
+				destination: "https://theskribe-backend.vercel.app/:path*",
 			},
 		];
 	},
