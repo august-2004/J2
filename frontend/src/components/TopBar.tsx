@@ -1,7 +1,6 @@
-import { CircleUser } from "lucide-react";
 import SearchInput from "./SearchInput";
 import Image from "next/image";
-
+import LogoutButton from "./LogoutButton";
 const TopBar = () => {
 	return (
 		<div className="top-bar">
@@ -21,7 +20,7 @@ const TopBar = () => {
 			/>
 			<div className="icons">
 				<SearchInput />
-				<CircleUser strokeWidth={0.5} size={40} className="circle" />
+				<LogoutButton />
 			</div>
 		</div>
 	);

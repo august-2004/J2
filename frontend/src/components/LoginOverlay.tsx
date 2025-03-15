@@ -9,7 +9,7 @@ export default function LoginOverlay() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [otppage, setOtpPage] = useState(false);
-	const [otp, setOtp] = useState(""); 
+	const [otp, setOtp] = useState("");
 	const [isLoggingIn, setIsLoggingIn] = useState(false);
 	const [isSigningUp, setIsSigningUp] = useState(false);
 	const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
@@ -127,8 +127,8 @@ export default function LoginOverlay() {
 	// Shared button style with disabled state
 	const getButtonStyle = (isDisabled: boolean) => ({
 		width: "150px",
-		backgroundColor: isDisabled ? "#6d3549" : "#360819", 
-		color: isDisabled ? "#cccccc" : "white", 
+		backgroundColor: isDisabled ? "#6d3549" : "#360819",
+		color: isDisabled ? "#cccccc" : "white",
 		padding: "10px",
 		borderRadius: "50px",
 		border: "none",
@@ -260,7 +260,7 @@ export default function LoginOverlay() {
 											: "Login"}
 									</button>
 								</form>
-								{!isSignup && (
+								{/* {!isSignup && (
 									<button
 										style={{
 											width: "100%",
@@ -276,7 +276,7 @@ export default function LoginOverlay() {
 									>
 										Forgot Password?
 									</button>
-								)}
+								)} */}
 								<p>
 									{isSignup
 										? "Already have an account? "
