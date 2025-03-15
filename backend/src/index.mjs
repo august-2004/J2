@@ -9,6 +9,7 @@ import folderCrud from "./Routes/FolderCrud.mjs";
 import cookieParser from "cookie-parser";
 const app = express();
 const server = http.createServer(app);
+
 app.use(
 	cors({
 		origin: "https://theskribe.vercel.app",
@@ -17,6 +18,18 @@ app.use(
 		allowedHeaders: ["Content-Type", "Authorization"],
 	})
 );
+
+app.options("*", (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "https://theskribe.vercel.app");
+	res.setHeader(
+		"Access-Control-Allow-Methods",
+		"GET, POST, PUT, DELETE, OPTIONS"
+	);
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+	res.setHeader("Access-Control-Allow-Credentials", "true");
+	res.status(204).end();
+});
+
 app.options("*", cors());
 app.use(cookieParser());
 app.use(express.json());

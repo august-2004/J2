@@ -10,12 +10,18 @@
         {
             "src": "/(.*)",
             "dest": "./src/index.mjs",
-            "methods":["GET","POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-            "headers":{
+            "methods": ["GET", "POST", "PUT", "DELETE", "PATCH"]
+        },
+        {
+            "src": "/(.*)",
+            "methods": ["OPTIONS"],
+            "headers": {
                 "Access-Control-Allow-Origin": "https://theskribe.vercel.app",
+                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
                 "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
                 "Access-Control-Allow-Credentials": "true"
-            }
+            },
+            "status": 204
         }
     ]
 }
