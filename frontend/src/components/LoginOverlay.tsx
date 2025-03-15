@@ -196,7 +196,7 @@ export default function LoginOverlay() {
 							padding: "0px",
 							borderRadius: "10px",
 							boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-							width: "400px",
+							width: "300px",
 							textAlign: "center",
 							animation: "popIn 0.3s cubic-bezier(0.26, 0.53, 0.74, 1.48)",
 						}}
