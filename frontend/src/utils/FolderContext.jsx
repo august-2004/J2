@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState, useEffect, use } from "react";
+import { createContext, useState, useEffect } from "react";
 import { toast } from "sonner";
 
 export const FolderContext = createContext();
@@ -14,7 +14,13 @@ const FolderProvider = ({ children }) => {
 
 	const fetchFolders = async () => {
 		try {
-			const response = await fetch("/api/folder/read");
+			const response = await fetch("/api/folder/read", {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			});
 			const data = await response.json();
 			setFolders(data);
 		} catch (error) {
@@ -29,6 +35,7 @@ const FolderProvider = ({ children }) => {
 				headers: {
 					"Content-Type": "application/json",
 				},
+				credentials: "include",
 				body: JSON.stringify({ title }),
 			});
 			const data = await response.json();
@@ -46,6 +53,7 @@ const FolderProvider = ({ children }) => {
 				headers: {
 					"Content-Type": "application/json",
 				},
+				credentials: "include",
 				body: JSON.stringify({ folderId, noteId }),
 			});
 			const data = await response.json();
@@ -62,6 +70,7 @@ const FolderProvider = ({ children }) => {
 				headers: {
 					"Content-Type": "application/json",
 				},
+				credentials: "include",
 				body: JSON.stringify({ folderId, noteId }),
 			});
 			const data = await response.json();
@@ -77,6 +86,7 @@ const FolderProvider = ({ children }) => {
 				method: "DELETE",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ folderId }),
+				credentials: "include",
 			});
 			const data = await response.json();
 			toast.success("Folder deleted");

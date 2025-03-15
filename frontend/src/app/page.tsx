@@ -4,7 +4,7 @@ import SideBar from "@/components/SideBar";
 import NotesProvider from "@/utils/NotesContext.jsx";
 import FolderProvider from "@/utils/FolderContext";
 import PageProvider from "@/utils/PageContext";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "sonner";
 
 export default function Home() {
 	return (

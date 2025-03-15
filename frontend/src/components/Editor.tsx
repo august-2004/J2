@@ -33,7 +33,6 @@ export default function Editor({ note, onClose }: any) {
 	});
 
 	useEffect(() => {
-		// Delay setting visibility to create animation effect
 		const timer = setTimeout(() => {
 			setIsVisible(true);
 		}, 50);
@@ -75,6 +74,7 @@ export default function Editor({ note, onClose }: any) {
 				headers: {
 					"Content-Type": "application/json",
 				},
+				credentials: "include",
 				body: JSON.stringify({ title, content, id: note._id }),
 			});
 			const data = await response.json();
@@ -86,7 +86,6 @@ export default function Editor({ note, onClose }: any) {
 
 	const handleClose = () => {
 		setIsVisible(false);
-		// Delay actual closing to allow animation to complete
 		setTimeout(() => {
 			onClose();
 		}, 300);

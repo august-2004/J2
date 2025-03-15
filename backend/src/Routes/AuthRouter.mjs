@@ -23,7 +23,6 @@ authRouter.post("/signup", async (req, res) => {
 		});
 	}
 	const user = new UserModel({
-		name: req.body.name,
 		email: req.body.email,
 		password: hashSync(req.body.password, 10),
 	});
@@ -41,8 +40,8 @@ authRouter.post("/signup", async (req, res) => {
 				.then(() => {
 					sendMail(
 						req.body.email,
-						"Verify your J2 Account",
-						`To complete signing up for J2 | The Notetaking App, please enter the OTP.\n\n**Your OTP code is ${otpValue}**`
+						"Verify your Skribe Account",
+						`To complete signing up for The Skribe, please enter the OTP.\n\n**Your OTP code is ${otpValue}**`
 					)
 						.then(() => {
 							return res.status(200).send({
@@ -287,15 +286,22 @@ authRouter.post("/login", (req, res) => {
 		};
 		const token = jwt.sign(payload, process.env.sec, { expiresIn: "1d" });
 
-		return res.status(200).send({
-			success: true,
-			message: user.name,
-			token: "Bearer " + token,
-		});
+		return res
+			.cookie("token", token, {
+				httpOnly: true, 
+				secure: false, 
+				sameSite: "Lax", 
+				maxAge: 7 * 24 * 60 * 60 * 1000, 
+			})
+			.status(200)
+			.json({
+				success: true,
+				message: user.name,
+			});
 	});
 });
 
-authRouter.post(
+authRouter.get(
 	"/check",
 	passport.authenticate("jwt", { session: false }),
 	(req, res) => {

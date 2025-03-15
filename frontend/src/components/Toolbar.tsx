@@ -3,8 +3,6 @@ import {
 	Italic,
 	Underline as UnderlineIcon,
 	Strikethrough,
-	Quote,
-	Code2,
 	Heading1,
 	Heading2,
 	Heading3,
@@ -16,7 +14,6 @@ import {
 	AlignJustify,
 } from "lucide-react";
 import "./styles/Toolbar.css";
-// Toolbar button component
 const ToolbarButton = ({ onClick, icon: Icon, isActive, color }: any) => (
 	<button
 		onClick={onClick}

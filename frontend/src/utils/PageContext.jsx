@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, createContext } from "react";
+import { useState, createContext } from "react";
 
 export const PageContext = createContext();
 

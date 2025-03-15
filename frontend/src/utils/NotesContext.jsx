@@ -13,7 +13,13 @@ const NotesProvider = ({ children }) => {
 
 	const fetchNotes = async () => {
 		try {
-			const response = await fetch("/api/read");
+			const response = await fetch("/api/read", {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			});
 			const data = await response.json();
 			setNotes(data);
 			console.log(data);

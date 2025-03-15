@@ -63,7 +63,7 @@ const CardLayout = () => {
 			? groupNotesByFolder(notes)
 			: groupNotesByDate(notes);
 	const sortedKeys = Object.keys(groupedNotes).sort((a, b) =>
-		a.localeCompare(b)
+		b.localeCompare(a)
 	);
 
 	const breakpointColumns = {

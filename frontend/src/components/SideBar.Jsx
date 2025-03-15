@@ -15,6 +15,7 @@ const SideBar = () => {
 				headers: {
 					"Content-Type": "application/json",
 				},
+				credentials: "include",
 				body: JSON.stringify({
 					titleColor,
 					contentColor,
@@ -31,7 +32,6 @@ const SideBar = () => {
 
 	const { setCurrentLayout, setCurrentPage } = useContext(PageContext);
 
-	// Toggle function to switch between views
 	const toggleView = () => {
 		setShowFolders(!showFolders);
 		setCurrentLayout(showFolders ? "home" : "folder");

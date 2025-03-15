@@ -6,9 +6,10 @@ import mongoose from "mongoose";
 import authRouter from "./Routes/AuthRouter.mjs";
 import noteCrud from "./Routes/NoteCrud.mjs";
 import folderCrud from "./Routes/FolderCrud.mjs";
+import cookieParser from "cookie-parser";
 const app = express();
 const server = http.createServer(app);
-
+app.use(cookieParser());
 app.use(express.json());
 app.use(authRouter);
 app.use(noteCrud);

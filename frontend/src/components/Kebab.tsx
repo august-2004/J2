@@ -28,6 +28,7 @@ export default function Kebab({ color, note_id }: any) {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({ id }),
+				credentials: "include",
 			});
 			const data = await response.json();
 			fetchNotes();
