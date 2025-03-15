@@ -32,7 +32,7 @@ const NotesProvider = ({ children }) => {
 			setNotes(data);
 			console.log(data);
 		} catch (error) {
-			toast.error("Failed to fetch notes");
+			console.log(error);
 		}
 	};
 

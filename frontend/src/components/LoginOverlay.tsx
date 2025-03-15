@@ -3,7 +3,32 @@
 import React, { useState } from "react";
 import LoginButton from "./LoginButton";
 import { toast } from "sonner";
+
+const fadeInAnimation = `
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+`;
+
+const popInAnimation = `
+  @keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+`;
+
 export default function LoginOverlay() {
+	React.useEffect(() => {
+		const style = document.createElement("style");
+		style.innerHTML = fadeInAnimation + popInAnimation;
+		document.head.appendChild(style);
+
+		return () => {
+			document.head.removeChild(style);
+		};
+	}, []);
+
 	const [isLoginOpen, setIsLoginOpen] = useState(false);
 	const [isSignup, setIsSignup] = useState(false);
 	const [email, setEmail] = useState("");
@@ -162,6 +187,7 @@ export default function LoginOverlay() {
 						alignItems: "center",
 						justifyContent: "center",
 						zIndex: 99,
+						animation: "fadeIn 0.3s ease-out",
 					}}
 				>
 					<div
@@ -172,6 +198,7 @@ export default function LoginOverlay() {
 							boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
 							width: "400px",
 							textAlign: "center",
+							animation: "popIn 0.3s cubic-bezier(0.26, 0.53, 0.74, 1.48)",
 						}}
 					>
 						<h2
