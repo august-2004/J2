@@ -13,14 +13,19 @@ const NotesProvider = ({ children }) => {
 
 	const fetchNotes = async () => {
 		try {
+			const token = localStorage.getItem("token");
+			if (!token) {
+				toast.error("You need to be logged in to view notes");
+				return;
+			}
 			const response = await fetch(
 				"https://theskribe-backend.vercel.app/read",
 				{
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
 					},
-					credentials: "include",
 				}
 			);
 			const data = await response.json();

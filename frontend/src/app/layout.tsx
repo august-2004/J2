@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import HeroPage from "@/components/HeroPage";
-import { cookies } from "next/headers";
+import ClientTokenProvider from "@/components/ClientTokenProvider";
+
 export const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -29,21 +30,29 @@ async function validateToken(token: string | undefined) {
 	}
 }
 
-export default async function RootLayout({
+export default function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
-	const cookieStore = await cookies();
-	const token = cookieStore.get("token")?.value;
-	console.log(token);
-	const isValid = await validateToken(token);
-	console.log(isValid);
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				{isValid ? children : <HeroPage />}
+				<ClientTokenProvider>
+					{(token) => <AuthHandler token={token}>{children}</AuthHandler>}
+				</ClientTokenProvider>
 			</body>
 		</html>
 	);
+}
+
+async function AuthHandler({
+	token,
+	children,
+}: {
+	token: string | null;
+	children: React.ReactNode;
+}) {
+	const isValid = await validateToken(token || undefined);
+	return isValid ? children : <HeroPage />;
 }

@@ -69,12 +69,17 @@ export default function Editor({ note, onClose }: any) {
 
 	const saveData = async (title: string, content: string) => {
 		try {
+			const token = localStorage.getItem("token");
+			if (!token) {
+				toast.error("Please sign in to save a note");
+				return;
+			}
 			const response = await fetch("api/update", {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
 				},
-				credentials: "include",
 				body: JSON.stringify({ title, content, id: note._id }),
 			});
 			const data = await response.json();

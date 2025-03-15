@@ -10,12 +10,17 @@ const SideBar = () => {
 	const [showFolders, setShowFolders] = useState(false);
 	const createNote = async ({ titleColor, contentColor }: any) => {
 		try {
+			const token = localStorage.getItem("token");
+			if (!token) {
+				toast.error("Please sign in to create a note");
+				return;
+			}
 			const response = await fetch("api/create", {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
 				},
-				credentials: "include",
 				body: JSON.stringify({
 					titleColor,
 					contentColor,

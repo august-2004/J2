@@ -3,21 +3,7 @@ import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import UserModel from "../Schemas/UserSchema.mjs";
 
 const opts = {
-	jwtFromRequest: (req) => {
-		let token = null;
-		if (
-			req.headers.authorization &&
-			req.headers.authorization.startsWith("Bearer ")
-		) {
-			token = req.headers.authorization.split(" ")[1];
-		}
-
-		if (!token && req.cookies) {
-			token = req.cookies.token;
-		}
-
-		return token;
-	},
+	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 	secretOrKey: process.env.sec,
 };
 

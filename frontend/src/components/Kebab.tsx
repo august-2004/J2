@@ -21,14 +21,19 @@ export default function Kebab({ color, note_id }: any) {
 	const { setCurrentPage } = useContext(PageContext);
 
 	const deleteData = async (id: string) => {
+		const token = localStorage.getItem("token");
+		if (!token) {
+			toast.error("Please sign in to delete a note");
+			return;
+		}
 		try {
 			const response = await fetch("api/delete", {
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
 				},
 				body: JSON.stringify({ id }),
-				credentials: "include",
 			});
 			const data = await response.json();
 			fetchNotes();

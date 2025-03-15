@@ -104,6 +104,7 @@ export default function LoginOverlay() {
 			}
 
 			setIsVerifyingOtp(true);
+
 			const response = await fetch(
 				"https://theskribe-backend.vercel.app/verify-otp",
 				{
@@ -111,7 +112,6 @@ export default function LoginOverlay() {
 					headers: {
 						"Content-Type": "application/json",
 					},
-					credentials: "include",
 					body: JSON.stringify({ email, otp }),
 				}
 			);

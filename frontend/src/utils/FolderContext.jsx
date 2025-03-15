@@ -14,14 +14,19 @@ const FolderProvider = ({ children }) => {
 
 	const fetchFolders = async () => {
 		try {
+			const token = localStorage.getItem("token");
+			if (!token) {
+				toast.error("You need to be logged in to view folders");
+				return;
+			}
 			const response = await fetch(
 				"https://theskribe-backend.vercel.app/folder/read",
 				{
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
 					},
-					credentials: "include",
 				}
 			);
 			const data = await response.json();
@@ -33,14 +38,20 @@ const FolderProvider = ({ children }) => {
 
 	const createFolder = async (title) => {
 		try {
+			const token = localStorage.getItem("token");
+			if (!token) {
+				toast.error("You need to be logged in to create a folder");
+				return;
+			}
+
 			const response = await fetch(
 				"https://theskribe-backend.vercel.app/folder/create",
 				{
 					method: "PUT",
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
 					},
-					credentials: "include",
 					body: JSON.stringify({ title }),
 				}
 			);
@@ -54,14 +65,19 @@ const FolderProvider = ({ children }) => {
 
 	const addNote = async (folderId, noteId) => {
 		try {
+			const token = localStorage.getItem("token");
+			if (!token) {
+				toast.error("You need to be logged in to add a note to a folder");
+				return;
+			}
 			const response = await fetch(
 				"https://theskribe-backend.vercel.app/folder/addNote",
 				{
 					method: "PUT",
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
 					},
-					credentials: "include",
 					body: JSON.stringify({ folderId, noteId }),
 				}
 			);
@@ -74,14 +90,19 @@ const FolderProvider = ({ children }) => {
 
 	const removeNote = async (folderId, noteId) => {
 		try {
+			const token = localStorage.getItem("token");
+			if (!token) {
+				toast.error("You need to be logged in to remove a note from a folder");
+				return;
+			}
 			const response = await fetch(
 				"https://theskribe-backend.vercel.app/folder/removeNote",
 				{
 					method: "PUT",
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
 					},
-					credentials: "include",
 					body: JSON.stringify({ folderId, noteId }),
 				}
 			);
@@ -94,13 +115,20 @@ const FolderProvider = ({ children }) => {
 
 	const deleteFolder = async (folderId) => {
 		try {
+			const token = localStorage.getItem("token");
+			if (!token) {
+				toast.error("You need to be logged in to delete a folder");
+				return;
+			}
 			const response = await fetch(
 				"https://theskribe-backend.vercel.app/folder/delete",
 				{
 					method: "DELETE",
-					headers: { "Content-Type": "application/json" },
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
 					body: JSON.stringify({ folderId }),
-					credentials: "include",
 				}
 			);
 			const data = await response.json();
