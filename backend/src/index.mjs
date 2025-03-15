@@ -13,24 +13,15 @@ const server = http.createServer(app);
 app.use(
 	cors({
 		origin: "https://theskribe.vercel.app",
-		credentials: true,
 		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 		allowedHeaders: ["Content-Type", "Authorization"],
 	})
 );
 
 app.options("*", (req, res) => {
-	res.setHeader("Access-Control-Allow-Origin", "https://theskribe.vercel.app");
-	res.setHeader(
-		"Access-Control-Allow-Methods",
-		"GET, POST, PUT, DELETE, OPTIONS"
-	);
-	res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-	res.setHeader("Access-Control-Allow-Credentials", "true");
-	res.status(204).end();
+	res.status(200).send("OK");
 });
 
-app.options("*", cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(authRouter);
