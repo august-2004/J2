@@ -9,7 +9,7 @@ const HeroPage = () => {
 		<main>
 			<div className="top w-full h-10 border-b flex justify-between items-center">
 				<h1 className="text-x font-black ml-5">Made with ♥️ by Vanji</h1>
-				<a href="https://github.com/august-2004">
+				<a href="https://github.com/august-2004/j2">
 					<Github className="mr-5 cursor-pointer" />
 				</a>
 			</div>
