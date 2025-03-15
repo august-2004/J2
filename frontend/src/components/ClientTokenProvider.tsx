@@ -4,11 +4,10 @@ import { useEffect, useState } from "react";
 import HeroPage from "@/components/HeroPage";
 
 async function validateToken(token: string | null) {
-	alert(token);
 	if (!token) return false;
 
 	try {
-		const res = await fetch("http://localhost:3100/check", {
+		const res = await fetch("https://theskribe-backend.vercel.app/check", {
 			headers: { Authorization: `Bearer ${token}` },
 			cache: "no-store",
 		});
