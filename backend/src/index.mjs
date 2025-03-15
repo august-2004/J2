@@ -18,10 +18,6 @@ app.use(
 	})
 );
 
-app.options("*", (req, res) => {
-	res.status(200).send("OK");
-});
-
 app.use(cookieParser());
 app.use(express.json());
 app.use(authRouter);
