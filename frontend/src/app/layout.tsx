@@ -22,7 +22,7 @@ export default function RootLayout({
 			<meta property="og:description" content="Take your notes everywhere." />
 			<meta
 				property="og:image"
-				content="https://github.com/august-2004/J2/blob/498fecca8751829ce131c57a2d7cbb7a04164859/frontend/public/laptop.png?raw=true"
+				content="https://raw.githubusercontent.com/august-2004/j2/main/frontend/public/opengraph.png"
 			/>
 			<meta property="og:image:width" content="1200" />
 			<meta property="og:image:height" content="630" />
