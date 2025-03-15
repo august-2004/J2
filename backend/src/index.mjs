@@ -11,7 +11,7 @@ const app = express();
 const server = http.createServer(app);
 app.use(
 	cors({
-		origin: "*",
+		origin: "https://theskribe.vercel.app",
 		credentials: true,
 		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 		allowedHeaders: ["Content-Type", "Authorization"],
