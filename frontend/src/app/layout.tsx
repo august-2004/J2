@@ -41,7 +41,9 @@ export default async function RootLayout({
 	console.log(isValid);
 	return (
 		<html lang="en">
-			<body>{isValid ? children : <HeroPage />}</body>
+			<body className={inter.className}>
+				{isValid ? children : <HeroPage />}
+			</body>
 		</html>
 	);
 }

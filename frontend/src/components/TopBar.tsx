@@ -12,7 +12,7 @@ const TopBar = () => {
 				alt="logo desktop version"
 			/>
 			<Image
-				src="/hero-logo.svgc"
+				src="/hero-logo.svg"
 				width={120}
 				height={80}
 				className="block md:hidden p-2"

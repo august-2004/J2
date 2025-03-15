@@ -1,6 +1,7 @@
 import { Router } from "express";
 import UserModel from "../Schemas/UserSchema.mjs";
 import OTPModel from "../Schemas/OTPModel.mjs";
+import NoteModel from "../Schemas/NoteSchema.mjs";
 import { hashSync, compareSync } from "bcrypt";
 import passport from "passport";
 import "../config/passport.mjs";
@@ -106,6 +107,18 @@ authRouter.post("/verify-otp", otpVerificationLimiter, async (req, res) => {
 
 	await OTPModel.deleteOne({ email });
 	await UserModel.updateOne({ email }, { verified: true });
+	const user = await UserModel.findOne({
+		email,
+	});
+	const Note = new NoteModel({
+		title: "Welcome to The Skribe",
+		content:
+			"<p>Thank you for signing up for <strong><em>The Skribe. </em></strong></p>",
+		titleColor: "#150836",
+		contentColor: "#1E0B4C",
+		owner: user._id,
+	});
+	await Note.save();
 	return res.status(200).send({
 		success: true,
 		message: "OTP verified successfully",
