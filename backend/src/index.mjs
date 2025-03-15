@@ -11,7 +11,7 @@ const app = express();
 const server = http.createServer(app);
 app.use(
 	cors({
-		origin: ["http://theskribe.vercel.app", "http://theskribe.vercel.app/"],
+		origin: ["https://theskribe.vercel.app", "https://theskribe.vercel.app/"],
 		credentials: true,
 	})
 );
