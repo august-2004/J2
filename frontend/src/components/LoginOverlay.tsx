@@ -40,7 +40,7 @@ export default function LoginOverlay() {
 			if (data.success) {
 				toast.success("Login successful");
 				localStorage.setItem("token", data.token);
-				// window.location.reload();
+				window.location.reload();
 			} else {
 				console.log(data);
 				toast.error("Login error");

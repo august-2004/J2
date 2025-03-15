@@ -19,6 +19,19 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
+			<meta property="og:description" content="Take your notes everywhere." />
+			<meta
+				property="og:image"
+				content="https://github.com/august-2004/J2/blob/498fecca8751829ce131c57a2d7cbb7a04164859/frontend/public/laptop.png?raw=true"
+			/>
+			<meta property="og:image:width" content="1200" />
+			<meta property="og:image:height" content="630" />
+			<meta property="og:type" content="website" />
+			<meta property="og:site_name" content="The Skribe" />
+			<meta property="og:url" content="https://theskribe.vercel.app/" />
+			<meta name="msapplication-TileColor" content="#000000" />
+			<meta name="theme-color" content="#000000" />
+
 			<body className={inter.className}>
 				<ClientTokenProvider>{children}</ClientTokenProvider>
 			</body>
