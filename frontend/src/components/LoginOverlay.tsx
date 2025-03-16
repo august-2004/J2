@@ -67,7 +67,6 @@ export default function LoginOverlay() {
 				localStorage.setItem("token", data.token);
 				window.location.reload();
 			} else {
-				console.log(data);
 				toast.error("Login error");
 				setIsLoggingIn(false);
 			}
@@ -101,7 +100,6 @@ export default function LoginOverlay() {
 				setOtpPage(true);
 				setIsSigningUp(false);
 			} else {
-				console.log(data);
 				toast.error(data.message);
 				setIsSigningUp(false);
 			}

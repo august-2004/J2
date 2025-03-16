@@ -30,7 +30,6 @@ const NotesProvider = ({ children }) => {
 			);
 			const data = await response.json();
 			setNotes(data);
-			console.log(data);
 		} catch (error) {
 			console.log(error);
 		}

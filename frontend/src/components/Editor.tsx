@@ -83,7 +83,6 @@ export default function Editor({ note, onClose }: any) {
 				body: JSON.stringify({ title, content, id: note._id }),
 			});
 			const data = await response.json();
-			console.log(data);
 		} catch (err) {
 			toast.error("Failed to save note");
 		}
